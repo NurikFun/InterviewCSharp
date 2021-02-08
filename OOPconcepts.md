@@ -17,9 +17,9 @@
 
 **Example:
 
+```
 using System; 
 namespace ConsoleApplication1 { 
-  
 class GFG { 
    
     public string name; 
@@ -58,6 +58,7 @@ class Sudo {
     } 
 } 
 }
+```
 
 # Encapsulation
 
@@ -67,7 +68,7 @@ Technically in encapsulation, the variables or data of a class are hidden from a
 As in encapsulation, the data in a class is hidden from other classes, so it is also known as data-hiding.
 Encapsulation can be achieved by: Declaring all the variables in the class as private and using C# Properties in the class to set and get the values of variables.
 
-
+```
 using System; 
   
 public class DemoEncap { 
@@ -123,7 +124,7 @@ class GFG {
         Console.WriteLine("Age: " + obj.Age); 
     } 
 } 
-
+```
 
 **Advantages of Encapsulation:**
 
@@ -142,6 +143,8 @@ Data Abstraction may also be defined as the process of identifying only the requ
 
 Example: Consider a real-life scenario of withdrawing money from ATM. The user only knows that in ATM machine first enter ATM card, then enter the pin code of ATM card, and then enter the amount which he/she wants to withdraw and at last, he/she gets their money. The user does not know about the inner mechanism of the ATM or the implementation of withdrawing money etc. The user just simply know how to operate the ATM machine, this is called abstraction.
 
+
+```
 using System; 
   
 namespace Demoabstraction { 
@@ -181,7 +184,7 @@ class GFG {
     } 
 } 
 } 
-
+```
 
 **Encapsulation vs Data Abstraction
 
@@ -208,7 +211,7 @@ There are two types of polymorphism in C#:
 
 It is also known as Early Binding. Method overloading is an example of Static Polymorphism. In overloading, the method / function has a same name but different signatures. It is also known as Compile Time Polymorphism because the decision of which method is to be called is made at compile time. Overloading is the concept in which method names are the same with a different set of parameters.
 
-
+```
 public class TestData  
 {  
     public int Add(int a, int b, int c)  
@@ -229,7 +232,7 @@ class Program
         int add1 = dataClass.Add(23, 34);  
     }  
 } 
-
+```
 
 # Dynamic / Runtime Polymorphism
 
@@ -237,7 +240,7 @@ Dynamic / runtime polymorphism is also known as late binding. Here, the method n
 
 Method overriding can be done using inheritance. With method overriding it is possible for the base class and derived class to have the same method name and same something. The compiler would not be aware of the method available for overriding the functionality, so the compiler does not throw an error at compile time. The compiler will decide which method to call at runtime and if no method is found then it throws an error.
 
-
+```
 public class Drawing  
 {  
     public virtual double Area()  
@@ -302,5 +305,5 @@ class Program
         Console.WriteLine("Area :" + rectangle.Area());  
     }  
 }  
-
+```
 
