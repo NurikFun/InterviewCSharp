@@ -7,15 +7,15 @@
 
 # Inheritance 
 
-**Inheritance is an important pillar of OOP(Object Oriented Programming). It is the mechanism in C# by which one class is allowed to inherit the features(fields and methods) of another class.
+**Inheritance is an important pillar of OOP(Object Oriented Programming). It is the mechanism in C# by which one class is allowed to inherit the features(fields and methods) of another class.**
 
-**Important terminology:
+**Important terminology:**
 
 **Super Class**: The class whose features are inherited is known as super class(or a base class or a parent class).
 **Sub Class**: The class that inherits the other class is known as subclass(or a derived class, extended class, or child class). The subclass can add its own fields and methods in addition to the superclass fields and methods.
 **Reusability**: Inheritance supports the concept of “reusability”, i.e. when we want to create a new class and there is already a class that includes some of the code that we want, we can derive our new class from the existing class. By doing this, we are reusing the fields and methods of the existing class.
 
-**Example:
+**Example:**
 
 ```
 using System; 
@@ -62,7 +62,7 @@ class Sudo {
 
 # Encapsulation
 
-**Encapsulation is defined as the wrapping up of data under a single unit. It is the mechanism that binds together code and the data it manipulates. In a different way, encapsulation is a protective shield that prevents the data from being accessed by the code outside this shield.
+**Encapsulation is defined as the wrapping up of data under a single unit. It is the mechanism that binds together code and the data it manipulates. In a different way, encapsulation is a protective shield that prevents the data from being accessed by the code outside this shield.**
 
 Technically in encapsulation, the variables or data of a class are hidden from any other class and can be accessed only through any member function of own class in which they are declared.
 As in encapsulation, the data in a class is hidden from other classes, so it is also known as data-hiding.
@@ -136,7 +136,7 @@ Testing code is easy: Encapsulated code is easy to test for unit testing.
 
 # Abstraction 
 
-**Data Abstraction
+**Data Abstraction**
 
 Data Abstraction is the property by virtue of which only the essential details are exhibited to the user. The trivial or the non-essentials units aren’t exhibited to the user.
 Data Abstraction may also be defined as the process of identifying only the required characteristics of an object ignoring the irrelevant details. The properties and behaviors of an object differentiate it from other objects of similar type and also help in classifying/grouping the objects.
@@ -186,7 +186,7 @@ class GFG {
 } 
 ```
 
-**Encapsulation vs Data Abstraction
+**Encapsulation vs Data Abstraction**
 
 Encapsulation is data hiding(information hiding) while Abstraction is detail hiding(implementation hiding).
 While encapsulation groups together data and methods that act upon the data, data abstraction deals with exposing to the user and hiding the details of implementation.
@@ -194,9 +194,9 @@ While encapsulation groups together data and methods that act upon the data, dat
 # Polymorphism
 
 **The word polymorphism means having many forms. In object-oriented programming paradigm, polymorphism is often expressed as 'one interface, multiple functions'.
-Polymorphism can be static or dynamic. In static polymorphism, the response to a function is determined at the compile time. In dynamic polymorphism, it is decided at run-time.
+Polymorphism can be static or dynamic. In static polymorphism, the response to a function is determined at the compile time. In dynamic polymorphism, it is decided at run-time.**
 
-**Types of Polymorphism
+**Types of Polymorphism**
 There are two types of polymorphism in C#:
   
   Static / Compile Time Polymorphism.
