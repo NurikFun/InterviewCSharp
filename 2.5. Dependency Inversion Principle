@@ -1,0 +1,366 @@
+# Dependency Inversion Principle in C# with a real-time example
+
+
+# What is the Dependency Inversion Principle in C#?
+
+The Dependency Inversion Principle (DIP) states that high-level modules/classes should not depend on low-level modules/classes. Both should depend upon abstractions. Secondly, abstractions should not depend upon details. Details should depend upon abstractions.
+
+The most important point that you need to remember while developing real-time applications, always try to keep the High-level module and Low-level module as loosely coupled as possible.
+
+When a class knows about the design and implementation of another class, it raises the risk that if we do any changes to one class will break the other class. So we must keep these high-level and low-level modules/classes loosely coupled as much as possible. To do that, we need to make both of them dependent on abstractions instead of knowing each other.
+
+
+# Let us understand the Dependency Inversion Principle in C# with one example
+let’s create one console application, Then create the following classes
+
+Employee.cs
+
+```
+namespace SOLID_PRINCIPLES.DIP
+{
+    public class Employee
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Department { get; set; }
+        public int Salary { get; set; }
+    }
+}
+
+```
+
+EmployeeBusinessLogic.cs
+
+```
+namespace SOLID_PRINCIPLES.DIP
+{
+    public class EmployeeBusinessLogic
+    {
+        EmployeeDataAccess _EmployeeDataAccess;
+        public EmployeeBusinessLogic()
+        {
+            _EmployeeDataAccess = DataAccessFactory.GetEmployeeDataAccessObj();
+        }
+        public Employee GetEmployeeDetails(int id)
+        {
+            return _EmployeeDataAccess.GetEmployeeDetails(id);
+        }
+    }
+}
+
+```
+
+DataAccessFactory.cs
+
+```
+namespace SOLID_PRINCIPLES.DIP
+{
+    public class DataAccessFactory
+    {
+        public static EmployeeDataAccess GetEmployeeDataAccessObj()
+        {
+            return new EmployeeDataAccess();
+        }
+    }
+}
+```
+
+EmployeeDataAccessLogic.cs
+
+
+
+```
+namespace SOLID_PRINCIPLES.DIP 
+{
+    public class EmployeeDataAccess
+    {
+        public Employee GetEmployeeDetails(int id)
+        {
+            // In real time get the employee details from db
+            //but here we are hard coded the employee details
+            Employee emp = new Employee()
+            {
+                ID = id,
+                Name = "Pranaya",
+                Department = "IT",
+                Salary = 10000
+            };
+            return emp;
+        }
+    }
+}
+
+```
+
+# Let us compare the above example with the Dependency Inversion Principle in C#
+
+
+As per the Dependency Inversion Principle definition, “a high-level module should not depend on low-level modules. Both should depend on the abstraction”.
+
+So, first, we need to figure out which one is the high-level module (class) and which one is the low-level module (class) in our example. A high-level module is a module which always depends on other modules. So, in our example, the EmployeeBusinessLogic class depends on EmployeeDataAccess class, so here the EmployeeBusinessLogic class is the high-level module and EmployeeDataAccess class is the low-level module.
+
+So, as per the first rule of the Dependency Inversion Principle in C#, the EmployeeBusinessLogic class/module should not depend on the concrete EmployeeDataAccess class/module, instead, both the classes should depend on abstraction.
+
+The second rule of the Dependency Inversion Principle state that “Abstractions should not depend on details. Details should depend on abstractions”.
+
+Before understanding this let us first understand what is an abstraction.
+
+
+# What is Abstraction?
+
+
+In simple words, we can say that Abstraction means something which is non-concrete. So, abstraction in programming means we need to create either an interface or abstract class which is non-concrete so that we can not create an instance of it. In our example, the EmployeeBusinessLogic and EmployeeDataAccess are concrete classes that mean we can create objects of it.
+
+As per the Dependency Inversion Principle in C#, the EmployeeBusinessLogic (high-level module) should not depend on the concrete EmployeeDataAccess (low-level module) class. Both classes should depend on abstractions, meaning both classes should depend on either an interface or an abstract class.
+
+
+# What should be in the interface (or in the abstract class)?
+
+
+As you can see in the above example, the EmployeeBusinessLogic uses the GetEmployeeDetails() method of EmployeeDataAccess class. In real-time, there will be many employee-related methods in the EmployeeDataAccess class.
+
+So, we need to declare the GetEmployeeDetails(int id) method within the interface. Add one interface with the name IDataAccess and then copy and paste the following codes.
+
+
+IDataAccess.cs
+
+```
+namespace SOLID_PRINCIPLES.DIP
+{
+    public interface IEmployeeDataAccess
+    {
+        Employee GetEmployeeDetails(int id);
+    }
+}
+```
+
+Now, we need to implement the IEmployeeDataAccess in EmployeeDataAccess class. So, modify the EmployeeDataAccess class as shown below
+
+EmployeeDataAccess.cs
+
+
+
+```
+namespace SOLID_PRINCIPLES.DIP
+{
+    public class EmployeeDataAccess : IEmployeeDataAccess
+    {
+        public Employee GetEmployeeDetails(int id)
+        {
+            // In real time get the employee details from db
+            //but here we are hardcoded the employee details
+            Employee emp = new Employee()
+            {
+                ID = id,
+                Name = "Pranaya",
+                Department = "IT",
+                Salary = 10000
+            };
+            return emp;
+        }
+    }
+}
+```
+
+
+Now, we need to change the factory class which will return the IEmployeeDataAccess instead of concrete EmployeeDataAccess class as shown below.
+
+DataAccessFactory.cs
+
+
+
+```
+namespace SOLID_PRINCIPLES.DIP
+{
+    public class DataAccessFactory
+    {
+        public static IEmployeeDataAccess GetEmployeeDataAccessObj()
+        {
+            return new EmployeeDataAccess();
+        }
+    }
+}
+```
+
+Now, we need to change the EmployeeBusinessLogic class which will use the IEmployeeDataAccess instead of the concrete EmployeeDataAccess class as shown below.
+
+
+```
+namespace SOLID_PRINCIPLES.DIP
+{
+    public class EmployeeBusinessLogic
+    {
+        IEmployeeDataAccess _EmployeeDataAccess;
+        public EmployeeBusinessLogic()
+        {
+            _EmployeeDataAccess = DataAccessFactory.GetEmployeeDataAccessObj();
+        }
+        public Employee GetEmployeeDetails(int id)
+        {
+            return _EmployeeDataAccess.GetEmployeeDetails(id);
+        }
+    }
+}
+```
+
+
+
+That’s it. We have implemented the Dependency Inversion Principle in our example where high-level module (EmployeeBusinessLogic) and low-level module (EmployeeDataAccess) depend on abstraction (IEmployeeDataAccess). Also, abstraction (IEmployeeDataAccess) does not depend on details (EmployeeDataAccess) but details depend on abstraction.
+
+# Advantages of implementing the Dependency Inversion Principle in C#:
+
+Now, the EmployeeBusinessLogic and EmployeeDataAccess classes are loosely coupled classes because EmployeeBusinessLogic does not depend on concrete EmployeeDataAccess class, instead, it includes reference of IEmployeeDataAccess interface. So now, we can easily use another class that implements IEmployeeDataAccess with a different implementation.
+
+
+
+
+# Another Example
+
+
+# Bad
+
+```
+    public class Implementation
+    {
+        private MySQLDB sql { get; set; } = null;
+        
+
+        public Implementation(MySQLDB sql)
+        {
+            this.sql = sql;
+        }
+
+
+        public void Implement()
+        {
+            sql.Method();
+        }
+
+    }
+    
+    public class MySQLDB
+    { 
+        public void Method()
+        {
+            Console.WriteLine("MySQL DB");
+        }
+    }
+    
+    
+    class Program
+    {
+        
+        static void Main(string[] args)
+        {
+
+            Implementation implementation = new Implementation(new MySQLDB());
+
+            implementation.Implement();
+            
+
+            Console.ReadKey();
+        } 
+    }
+    
+    
+
+```
+
+
+# Good
+
+
+```
+
+public interface Impl
+    {
+        void Method();
+    }
+
+    public class Implementation
+    {
+        private Impl sql { get; set; } = null;
+        
+
+        public Implementation(Impl sql)
+        {
+            this.sql = sql;
+        }
+
+
+        public void Implement()
+        {
+            sql.Method();
+        }
+
+    }
+
+
+    public class MySQLDB : Impl
+    {
+        
+        public void Method()
+        {
+            Console.WriteLine("MySQL DB");
+        }
+    }
+
+
+    public class OracleDB : Impl
+    {
+
+        public void Method()
+        {
+            Console.WriteLine("Oracle DB");
+        }
+    }
+    
+    class Program
+    {
+        
+        static void Main(string[] args)
+        {
+
+            Implementation implementation = new Implementation(new MySQLDB());
+
+            implementation.Implement();
+            
+
+            Console.ReadKey();
+        }
+
+      
+    }
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
